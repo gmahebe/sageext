@@ -1,11 +1,14 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sparkles, Mail, Lock, ArrowRight, Eye, EyeOff, AlertCircle, CheckCircle2, ExternalLink } from 'lucide-react';
-import { login, DEMO_USERS } from '@/lib/auth';
+import { login, DEMO_USERS, isAuthenticated } from '@/lib/auth';
 
 export default function LoginPage() {
   const router = useRouter();
+  useEffect(() => {
+    if (isAuthenticated()) router.replace('/dashboard');
+  }, [router]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
