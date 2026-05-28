@@ -112,85 +112,79 @@ export default function DashboardPage() {
         subtitle={`${today} · Khumalo & Associates (Pty) Ltd · Tax Ref: 9312/845/17/4`}
       />
 
-      <main className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
+      <main className="flex-1 overflow-y-auto px-3 sm:px-6 py-3 sm:py-5 space-y-3 sm:space-y-5">
 
         {/* ── AI Morning Brief ───────────────────────────────────────── */}
-        <div className="rounded-xl px-4 py-3 flex items-start gap-3" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)', border: '1px solid rgba(59,130,246,0.3)' }}>
-          <div className="flex-shrink-0 mt-0.5">
-            <Sparkles size={14} style={{ color: '#60a5fa' }} />
+        <div className="rounded-xl px-3 sm:px-4 py-3 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)', border: '1px solid rgba(59,130,246,0.3)' }}>
+          <div className="flex items-start gap-2 flex-1 min-w-0">
+            <Sparkles size={14} className="flex-shrink-0 mt-0.5" style={{ color: '#60a5fa' }} />
+            <div className="min-w-0">
+              <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: '#60a5fa' }}>AI Morning Brief</span>
+              <p className="text-[12px] sm:text-[13px] mt-0.5 leading-relaxed" style={{ color: '#cbd5e1' }}>
+                Cash flow stable at <strong style={{ color: '#6ee7b7' }}>R248,500</strong> · VAT201 due <strong style={{ color: '#fca5a5' }}>48 hrs</strong> · Overdue invoices up <strong style={{ color: '#fcd34d' }}>28%</strong> — Nexus Trading & Umoya are <strong style={{ color: '#fca5a5' }}>61% of cash risk</strong>.
+              </p>
+            </div>
           </div>
-          <div className="flex-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: '#60a5fa' }}>AI Morning Brief</span>
-            <p className="text-[13px] mt-0.5" style={{ color: '#cbd5e1' }}>
-              Cash flow is stable at <strong style={{ color: '#6ee7b7' }}>R248,500</strong> with a 5.2-week runway. However, your VAT201 is due in <strong style={{ color: '#fca5a5' }}>48 hours</strong> and overdue invoices rose <strong style={{ color: '#fcd34d' }}>28%</strong> this month —{' '}
-              <strong style={{ color: '#fca5a5' }}>Nexus Trading and Umoya represent 61% of cash risk</strong>. Three actions require your attention today.
-            </p>
-          </div>
-          <button onClick={() => setShowBrief(true)} className="flex-shrink-0 text-[11px] flex items-center gap-1 px-2 py-1 rounded-lg transition-opacity hover:opacity-80" style={{ background: 'rgba(59,130,246,0.15)', color: '#93c5fd' }}>
-            <Eye size={11} /> View full brief
+          <button onClick={() => setShowBrief(true)} className="self-start sm:flex-shrink-0 text-[11px] flex items-center gap-1 px-2 py-1 rounded-lg whitespace-nowrap" style={{ background: 'rgba(59,130,246,0.15)', color: '#93c5fd' }}>
+            <Eye size={11} /> Full brief
           </button>
         </div>
 
         {/* ── 5 Health KPI Cards ─────────────────────────────────────── */}
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
           {healthIndicators.map((kpi) => {
             const s = statusColor[kpi.status];
             return (
               <div key={kpi.id}
-                className="bg-white rounded-xl p-4 card-hover cursor-pointer"
+                className="bg-white rounded-xl p-3 sm:p-4 card-hover cursor-pointer"
                 style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-                {/* Icon + status dot */}
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                <div className="flex items-start justify-between mb-2 sm:mb-3">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{ background: s.bg, color: s.text }}>
                     {healthIcons[kpi.id]}
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1">
                     <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: s.dot }} />
-                    <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: s.text }}>
-                      {kpi.status === 'green' ? 'Good' : kpi.status === 'amber' ? 'Warn' : 'Critical'}
+                    <span className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide" style={{ color: s.text }}>
+                      {kpi.status === 'green' ? 'Good' : kpi.status === 'amber' ? 'Warn' : 'Crit'}
                     </span>
                   </div>
                 </div>
-                {/* Metric */}
-                <div className="font-bold text-[18px] leading-none" style={{ fontFamily: 'Syne, sans-serif', color: '#0f172a' }}>
+                <div className="font-bold text-[15px] sm:text-[18px] leading-none" style={{ fontFamily: 'Syne, sans-serif', color: '#0f172a' }}>
                   {kpi.metric}
                 </div>
-                {/* Label */}
-                <div className="text-[11px] font-medium text-slate-500 mt-1">{kpi.label}</div>
-                {/* Subtext + trend */}
-                <div className="flex items-center gap-1 mt-1.5">
+                <div className="text-[10px] sm:text-[11px] font-medium text-slate-500 mt-1">{kpi.label}</div>
+                <div className="flex items-center gap-1 mt-1">
                   <TrendIcon trend={kpi.trend} />
-                  <span className="text-[10px] text-slate-400">{kpi.subtext}</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 truncate">{kpi.subtext}</span>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* ── Main grid: Cash Flow + Actions ────────────────────────── */}
-        <div className="grid grid-cols-12 gap-4">
-
-          {/* Cash Flow Chart — 8 cols */}
-          <div className="col-span-8 bg-white rounded-xl p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-            <div className="flex items-center justify-between mb-4">
+        {/* ── Cash Flow + Priority Actions ──────────────────────────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4">
+          {/* Cash Flow Chart */}
+          <div className="lg:col-span-8 bg-white rounded-xl p-4 sm:p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
               <div>
-                <h2 className="font-bold text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Cash Flow — 30 Days</h2>
-                <p className="text-[11px] text-slate-400 mt-0.5">FNB Business Account · ZAR</p>
+                <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Cash Flow — 30 Days</h2>
+                <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">FNB Business Account · ZAR</p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5">
+                <div className="hidden sm:flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full" style={{ background: '#10b981' }} />
                   <span className="text-[11px] text-slate-500">Balance</span>
                 </div>
-                <button className="text-[11px] px-3 py-1.5 rounded-lg font-medium transition-colors hover:bg-slate-50"
+                <button className="text-[11px] px-2 sm:px-3 py-1.5 rounded-lg font-medium transition-colors hover:bg-slate-50"
                   style={{ color: '#64748b', border: '1px solid #e2e8f0' }}>
                   <RefreshCw size={11} className="inline mr-1" />Export
                 </button>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={180}>
-              <AreaChart data={cashFlowData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+            <ResponsiveContainer width="100%" height={160}>
+              <AreaChart data={cashFlowData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="cashGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#10b981" stopOpacity={0.2} />
@@ -198,53 +192,42 @@ export default function DashboardPage() {
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="day" tick={{ fontSize: 10, fill: '#94a3b8' }} tickLine={false} axisLine={false}
-                  interval={4} />
-                <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} tickLine={false} axisLine={false}
-                  tickFormatter={(v) => `R${(v / 1000).toFixed(0)}k`} width={45} />
+                <XAxis dataKey="day" tick={{ fontSize: 9, fill: '#94a3b8' }} tickLine={false} axisLine={false} interval={6} />
+                <YAxis tick={{ fontSize: 9, fill: '#94a3b8' }} tickLine={false} axisLine={false}
+                  tickFormatter={(v) => `R${(v / 1000).toFixed(0)}k`} width={38} />
                 <Tooltip content={<CustomCashTooltip />} />
                 <Area type="monotone" dataKey="balance" stroke="#10b981" strokeWidth={2} fill="url(#cashGrad)" dot={false} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Priority Actions — 4 cols */}
-          <div className="col-span-4 bg-white rounded-xl p-5 flex flex-col" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          {/* Priority Actions */}
+          <div className="lg:col-span-4 bg-white rounded-xl p-4 sm:p-5 flex flex-col" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-bold text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Priority Actions</h2>
-              <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
-                style={{ background: '#fee2e2', color: '#dc2626' }}>3 Today</span>
+              <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Priority Actions</h2>
+              <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: '#fee2e2', color: '#dc2626' }}>3 Today</span>
             </div>
-            <div className="space-y-2.5 flex-1">
+            <div className="space-y-2 flex-1">
               {priorityActions
                 .filter(a => a.id !== dismissedAction)
                 .map((action) => {
                   const u = urgencyStyle[action.urgency];
-                  const ActionIcon = action.icon === 'AlertTriangle' ? AlertTriangle
-                    : action.icon === 'Copy' ? Copy : Clock;
+                  const ActionIcon = action.icon === 'AlertTriangle' ? AlertTriangle : action.icon === 'Copy' ? Copy : Clock;
                   return (
-                    <div key={action.id} className="rounded-lg p-3 relative transition-all"
+                    <div key={action.id} className="rounded-lg p-3 relative"
                       style={{ background: u.bg, border: `1px solid ${u.border}` }}>
                       <button onClick={() => setDismissedAction(action.id)}
-                        className="absolute top-2 right-2 opacity-40 hover:opacity-70 transition-opacity">
+                        className="absolute top-2 right-2 opacity-40 hover:opacity-70">
                         <X size={11} style={{ color: u.text }} />
                       </button>
                       <div className="flex items-start gap-2 pr-4">
-                        <ActionIcon size={13} className="flex-shrink-0 mt-0.5" style={{ color: u.text }} />
+                        <ActionIcon size={12} className="flex-shrink-0 mt-0.5" style={{ color: u.text }} />
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1.5 mb-0.5">
-                            <span className="text-[9px] font-bold tracking-widest uppercase" style={{ color: u.text }}>
-                              {action.urgency}
-                            </span>
-                          </div>
-                          <p className="text-[11px] font-semibold leading-tight" style={{ color: u.text }}>{action.title}</p>
-                          {action.amount && (
-                            <div className="text-[12px] font-bold mt-0.5" style={{ color: u.text }}>{action.amount}</div>
-                          )}
-                          <button
-                            onClick={() => setActiveAction(action.id)}
-                            className="mt-1.5 text-[10px] font-semibold flex items-center gap-1"
-                            style={{ color: u.text }}>
+                          <span className="text-[9px] font-bold tracking-widest uppercase" style={{ color: u.text }}>{action.urgency}</span>
+                          <p className="text-[11px] font-semibold leading-tight mt-0.5" style={{ color: u.text }}>{action.title}</p>
+                          {action.amount && <div className="text-[12px] font-bold mt-0.5" style={{ color: u.text }}>{action.amount}</div>}
+                          <button onClick={() => setActiveAction(action.id)}
+                            className="mt-1.5 text-[10px] font-semibold flex items-center gap-1" style={{ color: u.text }}>
                             {action.cta} <ArrowRight size={9} />
                           </button>
                         </div>
@@ -256,70 +239,54 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* ── Second grid: Invoices + Revenue + Expenses ────────────── */}
-        <div className="grid grid-cols-12 gap-4">
+        {/* ── Aged Receivables + Revenue + Expenses ─────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4">
 
-          {/* Invoice Aging — 4 cols */}
-          <div className="col-span-4 bg-white rounded-xl p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="font-bold text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Aged Receivables</h2>
-                <p className="text-[11px] text-slate-400">R 262,300 total outstanding</p>
-              </div>
-            </div>
-            <div className="space-y-2.5">
+          {/* Invoice Aging */}
+          <div className="sm:col-span-1 lg:col-span-4 bg-white rounded-xl p-4 sm:p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+            <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800 mb-1" style={{ fontFamily: 'Syne, sans-serif' }}>Aged Receivables</h2>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 mb-3">R 262,300 total outstanding</p>
+            <div className="space-y-2">
               {agingData.map((item, i) => (
-                <div key={item.label} className="flex items-center gap-2.5">
-                  <div className="w-20 text-[11px] text-slate-500 flex-shrink-0">{item.label}</div>
+                <div key={item.label} className="flex items-center gap-2">
+                  <div className="w-16 text-[10px] sm:text-[11px] text-slate-500 flex-shrink-0">{item.label}</div>
                   <div className="flex-1 h-5 rounded-md overflow-hidden" style={{ background: '#f1f5f9' }}>
-                    <div
-                      className="h-full rounded-md flex items-center px-1.5 transition-all"
-                      style={{
-                        width: `${(item.value / 142000) * 100}%`,
-                        background: agingColors[i],
-                        minWidth: '30px',
-                      }}>
-                      <span className="text-[9px] font-bold text-white">
-                        R{(item.value / 1000).toFixed(0)}k
-                      </span>
+                    <div className="h-full rounded-md flex items-center px-1.5"
+                      style={{ width: `${(item.value / 142000) * 100}%`, background: agingColors[i], minWidth: '28px' }}>
+                      <span className="text-[9px] font-bold text-white">R{(item.value / 1000).toFixed(0)}k</span>
                     </div>
                   </div>
-                  <div className="text-[10px] text-slate-400 w-8 text-right flex-shrink-0">{item.count}</div>
+                  <div className="text-[10px] text-slate-400 w-6 text-right flex-shrink-0">{item.count}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: '1px solid #f1f5f9' }}>
-              <span className="text-[11px] text-slate-500">23 total invoices</span>
-              <button className="text-[11px] font-semibold flex items-center gap-1" style={{ color: '#10b981' }}>
-                View all <ChevronRight size={11} />
+            <div className="mt-3 pt-2 flex items-center justify-between" style={{ borderTop: '1px solid #f1f5f9' }}>
+              <span className="text-[10px] sm:text-[11px] text-slate-500">23 total invoices</span>
+              <button className="text-[10px] sm:text-[11px] font-semibold flex items-center gap-1" style={{ color: '#10b981' }}>
+                View all <ChevronRight size={10} />
               </button>
             </div>
           </div>
 
-          {/* Revenue vs Expenses — 5 cols */}
-          <div className="col-span-5 bg-white rounded-xl p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-            <div className="flex items-center justify-between mb-4">
+          {/* Revenue vs Expenses */}
+          <div className="sm:col-span-1 lg:col-span-5 bg-white rounded-xl p-4 sm:p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+            <div className="flex items-center justify-between mb-3">
               <div>
-                <h2 className="font-bold text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Revenue vs Expenses</h2>
-                <p className="text-[11px] text-slate-400">Last 6 months · ZAR</p>
+                <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Revenue vs Expenses</h2>
+                <p className="text-[10px] sm:text-[11px] text-slate-400">Last 6 months · ZAR</p>
               </div>
-              <div className="flex items-center gap-3 text-[11px] text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#10b981' }} />Revenue
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#e2e8f0' }} />Expenses
-                </div>
+              <div className="hidden sm:flex items-center gap-3 text-[11px] text-slate-500">
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#10b981' }} />Rev</div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#e2e8f0' }} />Exp</div>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={150}>
+            <ResponsiveContainer width="100%" height={140}>
               <BarChart data={monthlyRevenue} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} barCategoryGap="30%">
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#94a3b8' }} tickLine={false} axisLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} tickLine={false} axisLine={false}
-                  tickFormatter={(v) => `R${(v / 1000).toFixed(0)}k`} width={40} />
-                <Tooltip
-                  formatter={(v: any) => [`R ${Number(v).toLocaleString()}`, '']}
+                  tickFormatter={(v) => `R${(v / 1000).toFixed(0)}k`} width={38} />
+                <Tooltip formatter={(v: any) => [`R ${Number(v).toLocaleString()}`, '']}
                   contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0' }} />
                 <Bar dataKey="revenue" fill="#10b981" radius={[3, 3, 0, 0]} />
                 <Bar dataKey="expenses" fill="#e2e8f0" radius={[3, 3, 0, 0]} />
@@ -327,98 +294,86 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
 
-          {/* Expense Breakdown — 3 cols */}
-          <div className="col-span-3 bg-white rounded-xl p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-            <h2 className="font-bold text-[14px] text-slate-800 mb-1" style={{ fontFamily: 'Syne, sans-serif' }}>Expense Watchdog</h2>
-            <p className="text-[11px] text-slate-400 mb-3">May 2025 · R {totalExpenses.toLocaleString()}</p>
-            <div className="flex justify-center mb-3">
-              <PieChart width={100} height={100}>
-                <Pie data={expenseData} cx={50} cy={50} innerRadius={30} outerRadius={46} dataKey="value" strokeWidth={0}>
-                  {expenseData.map((entry, index) => (
-                    <Cell key={index} fill={entry.color} />
-                  ))}
+          {/* Expense Watchdog */}
+          <div className="sm:col-span-2 lg:col-span-3 bg-white rounded-xl p-4 sm:p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+            <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800 mb-1" style={{ fontFamily: 'Syne, sans-serif' }}>Expense Watchdog</h2>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 mb-3">May 2025 · R {totalExpenses.toLocaleString()}</p>
+            <div className="flex items-center gap-4">
+              <PieChart width={90} height={90}>
+                <Pie data={expenseData} cx={45} cy={45} innerRadius={26} outerRadius={42} dataKey="value" strokeWidth={0}>
+                  {expenseData.map((entry, index) => <Cell key={index} fill={entry.color} />)}
                 </Pie>
               </PieChart>
-            </div>
-            <div className="space-y-1.5">
-              {expenseData.map((e) => (
-                <div key={e.name} className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: e.color }} />
-                  <span className="text-[10px] text-slate-500 flex-1 truncate">{e.name}</span>
-                  <span className="text-[10px] font-semibold text-slate-700">
-                    {Math.round((e.value / totalExpenses) * 100)}%
-                  </span>
-                </div>
-              ))}
+              <div className="flex-1 space-y-1.5">
+                {expenseData.map((e) => (
+                  <div key={e.name} className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: e.color }} />
+                    <span className="text-[10px] text-slate-500 flex-1 truncate">{e.name}</span>
+                    <span className="text-[10px] font-semibold text-slate-700">{Math.round((e.value / totalExpenses) * 100)}%</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* ── Recent Invoices Table ──────────────────────────────────── */}
-        <div className="bg-white rounded-xl p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-white rounded-xl p-4 sm:p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
             <div>
-              <h2 className="font-bold text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Recent Invoices</h2>
-              <p className="text-[11px] text-slate-400">Latest customer invoices from Sage</p>
+              <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Recent Invoices</h2>
+              <p className="text-[10px] sm:text-[11px] text-slate-400">Latest customer invoices from Sage</p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] px-2.5 py-1 rounded-full" style={{ background: '#fee2e2', color: '#dc2626' }}>
-                2 Overdue
-              </span>
+              <span className="text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full" style={{ background: '#fee2e2', color: '#dc2626' }}>2 Overdue</span>
               <button className="text-[11px] font-semibold flex items-center gap-1" style={{ color: '#10b981' }}>
                 View all <ChevronRight size={11} />
               </button>
             </div>
           </div>
-          <table className="w-full">
-            <thead>
-              <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                {['Invoice', 'Customer', 'Amount', 'Date', 'Status', ''].map(h => (
-                  <th key={h} className="text-left text-[10px] font-semibold uppercase tracking-wider pb-2"
-                    style={{ color: '#94a3b8' }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {recentInvoices.map((inv, i) => {
-                const s = invoiceStatusStyle[inv.status];
-                return (
-                  <tr key={inv.id} className="group"
-                    style={{ borderBottom: i < recentInvoices.length - 1 ? '1px solid #f8fafc' : 'none' }}>
-                    <td className="py-2.5">
-                      <span className="text-[12px] font-mono font-medium text-slate-700">{inv.id}</span>
-                    </td>
-                    <td className="py-2.5">
-                      <span className="text-[12px] text-slate-700">{inv.customer}</span>
-                    </td>
-                    <td className="py-2.5">
-                      <span className="text-[13px] font-semibold" style={{ fontFamily: 'Syne, sans-serif', color: '#0f172a' }}>{inv.amount}</span>
-                    </td>
-                    <td className="py-2.5">
-                      <span className="text-[12px] text-slate-400">{inv.date}</span>
-                    </td>
-                    <td className="py-2.5">
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                        style={{ background: s.bg, color: s.text }}>{s.label}</span>
-                    </td>
-                    <td className="py-2.5 text-right">
-                      <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg hover:bg-slate-50">
-                        <MoreHorizontal size={13} style={{ color: '#94a3b8' }} />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto -mx-1">
+            <table className="w-full min-w-[480px]">
+              <thead>
+                <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  {['Invoice', 'Customer', 'Amount', 'Date', 'Status', ''].map(h => (
+                    <th key={h} className="text-left text-[10px] font-semibold uppercase tracking-wider pb-2 px-1"
+                      style={{ color: '#94a3b8' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {recentInvoices.map((inv, i) => {
+                  const s = invoiceStatusStyle[inv.status];
+                  return (
+                    <tr key={inv.id} className="group"
+                      style={{ borderBottom: i < recentInvoices.length - 1 ? '1px solid #f8fafc' : 'none' }}>
+                      <td className="py-2.5 px-1"><span className="text-[11px] font-mono font-medium text-slate-600">{inv.id}</span></td>
+                      <td className="py-2.5 px-1"><span className="text-[12px] text-slate-700">{inv.customer}</span></td>
+                      <td className="py-2.5 px-1"><span className="text-[12px] font-semibold" style={{ color: '#0f172a' }}>{inv.amount}</span></td>
+                      <td className="py-2.5 px-1"><span className="text-[11px] text-slate-400">{inv.date}</span></td>
+                      <td className="py-2.5 px-1">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                          style={{ background: s.bg, color: s.text }}>{s.label}</span>
+                      </td>
+                      <td className="py-2.5 px-1 text-right">
+                        <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg hover:bg-slate-50">
+                          <MoreHorizontal size={13} style={{ color: '#94a3b8' }} />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        {/* ── Bottom row: Compliance + Documents pending ─────────────── */}
-        <div className="grid grid-cols-12 gap-4 pb-4">
+        {/* ── Compliance + Documents + Health Score ─────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 pb-4">
 
-          {/* Compliance status — 4 cols */}
-          <div className="col-span-4 bg-white rounded-xl p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-            <h2 className="font-bold text-[14px] text-slate-800 mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>Compliance Monitor</h2>
+          {/* Compliance */}
+          <div className="bg-white rounded-xl p-4 sm:p-5" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+            <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800 mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>Compliance Monitor</h2>
             <div className="space-y-2">
               {[
                 { label: 'VAT201 — May 2025', due: '27 May', status: 'red', note: 'Due in 48 hrs' },
@@ -432,7 +387,7 @@ export default function DashboardPage() {
                     style={{ background: '#f8fafc', border: '1px solid #f1f5f9' }}>
                     <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: s.dot }} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-[12px] font-medium text-slate-700 truncate">{item.label}</p>
+                      <p className="text-[11px] sm:text-[12px] font-medium text-slate-700 truncate">{item.label}</p>
                       <p className="text-[10px] text-slate-400">{item.note}</p>
                     </div>
                     <span className="text-[10px] font-semibold flex-shrink-0" style={{ color: s.text }}>{item.due}</span>
@@ -442,57 +397,54 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Documents pending — 4 cols */}
-          <div className="col-span-4 bg-white rounded-xl p-5 flex flex-col" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          {/* Documents pending */}
+          <div className="bg-white rounded-xl p-4 sm:p-5 flex flex-col" style={{ border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-bold text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Documents Pending</h2>
+              <h2 className="font-bold text-[13px] sm:text-[14px] text-slate-800" style={{ fontFamily: 'Syne, sans-serif' }}>Documents Pending</h2>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#fef3c7', color: '#d97706' }}>3 queued</span>
             </div>
             <div className="space-y-2 flex-1">
               {[
-                { name: 'Supplier Invoice — Bidvest.pdf', stage: 'OCR Processing', progress: 65, color: '#3b82f6' },
-                { name: 'Receipt — Builders Warehouse.jpg', stage: 'Validation Gate', progress: 88, color: '#f59e0b' },
-                { name: 'Quote — Telkom Business.pdf', stage: 'Awaiting Review', progress: 100, color: '#10b981' },
+                { name: 'Supplier Invoice — Bidvest.pdf', stage: 'OCR', progress: 65, color: '#3b82f6' },
+                { name: 'Receipt — Builders Warehouse.jpg', stage: 'Validation', progress: 88, color: '#f59e0b' },
+                { name: 'Quote — Telkom Business.pdf', stage: 'Review', progress: 100, color: '#10b981' },
               ].map((doc) => (
                 <div key={doc.name} className="p-3 rounded-lg" style={{ background: '#f8fafc', border: '1px solid #f1f5f9' }}>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <FileText size={12} style={{ color: '#94a3b8' }} />
+                    <FileText size={11} style={{ color: '#94a3b8' }} />
                     <span className="text-[11px] font-medium text-slate-700 truncate flex-1">{doc.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: '#e2e8f0' }}>
-                      <div className="h-full rounded-full transition-all" style={{ width: `${doc.progress}%`, background: doc.color }} />
+                      <div className="h-full rounded-full" style={{ width: `${doc.progress}%`, background: doc.color }} />
                     </div>
                     <span className="text-[10px] text-slate-400 flex-shrink-0">{doc.stage}</span>
                   </div>
                 </div>
               ))}
             </div>
-            <button className="mt-3 w-full py-2 rounded-lg text-[12px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+            <button className="mt-3 w-full py-2 rounded-lg text-[12px] font-semibold flex items-center justify-center gap-1.5"
               style={{ background: '#f1f5f9', color: '#64748b', border: '1px solid #e2e8f0' }}>
               <FileText size={13} /> Upload Documents
             </button>
           </div>
 
-          {/* Business health score — 4 cols */}
-          <div className="col-span-4 rounded-xl p-5 flex flex-col justify-between"
+          {/* Health score */}
+          <div className="sm:col-span-2 lg:col-span-1 rounded-xl p-4 sm:p-5 flex flex-col justify-between"
             style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)', border: '1px solid rgba(59,130,246,0.2)' }}>
             <div>
-              <h2 className="font-bold text-[14px] text-white mb-0.5" style={{ fontFamily: 'Syne, sans-serif' }}>Business Health Score</h2>
-              <p className="text-[11px]" style={{ color: '#64748b' }}>Khumalo & Associates · May 2025</p>
+              <h2 className="font-bold text-[13px] sm:text-[14px] text-white mb-0.5" style={{ fontFamily: 'Syne, sans-serif' }}>Business Health Score</h2>
+              <p className="text-[10px] sm:text-[11px]" style={{ color: '#64748b' }}>Khumalo & Associates · May 2025</p>
             </div>
-            <div className="flex items-center justify-center py-4">
-              <div className="relative">
-                <svg width="120" height="120" viewBox="0 0 120 120">
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="#10b981" strokeWidth="10"
-                    strokeDasharray={`${2 * Math.PI * 50 * 0.62} ${2 * Math.PI * 50}`}
-                    strokeDashoffset="0" strokeLinecap="round"
-                    style={{ transform: 'rotate(-90deg)', transformOrigin: '60px 60px' }} />
-                  <text x="60" y="55" textAnchor="middle" fill="white" fontSize="24" fontWeight="700" fontFamily="Syne, sans-serif">62</text>
-                  <text x="60" y="70" textAnchor="middle" fill="#64748b" fontSize="10">/100</text>
-                </svg>
-              </div>
+            <div className="flex items-center justify-center py-3">
+              <svg width="110" height="110" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#10b981" strokeWidth="10"
+                  strokeDasharray={`${2 * Math.PI * 50 * 0.62} ${2 * Math.PI * 50}`}
+                  strokeLinecap="round" style={{ transform: 'rotate(-90deg)', transformOrigin: '60px 60px' }} />
+                <text x="60" y="55" textAnchor="middle" fill="white" fontSize="24" fontWeight="700" fontFamily="Syne, sans-serif">62</text>
+                <text x="60" y="70" textAnchor="middle" fill="#64748b" fontSize="10">/100</text>
+              </svg>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {[
@@ -501,13 +453,13 @@ export default function DashboardPage() {
                 { label: 'Receivables', val: 55, c: '#f59e0b' },
                 { label: 'Payables', val: 82, c: '#10b981' },
               ].map(m => (
-                <div key={m.label} className="rounded-lg px-3 py-2" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                <div key={m.label} className="rounded-lg px-2.5 py-2" style={{ background: 'rgba(255,255,255,0.05)' }}>
                   <div className="text-[10px] mb-1" style={{ color: '#64748b' }}>{m.label}</div>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.1)' }}>
                       <div className="h-full rounded-full" style={{ width: `${m.val}%`, background: m.c }} />
                     </div>
-                    <span className="text-[11px] font-bold" style={{ color: m.c }}>{m.val}</span>
+                    <span className="text-[10px] font-bold" style={{ color: m.c }}>{m.val}</span>
                   </div>
                 </div>
               ))}
