@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard, FileText, Users, Zap, Brain,
-  BarChart3, Settings, ChevronRight, Sparkles,
-  Bell, HelpCircle, LogOut
+  BarChart3, Settings, ChevronRight,
+  HelpCircle, LogOut
 } from 'lucide-react';
 import { logout, getSession } from '@/lib/auth';
 
@@ -17,7 +17,11 @@ const navItems = [
   { label: 'Reports', href: '/reports', icon: BarChart3, badge: null },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+export default function Sidebar({ onClose }: SidebarProps = {}) {
   const pathname = usePathname();
   const router = useRouter();
   const session = getSession();
@@ -28,20 +32,20 @@ export default function Sidebar() {
     router.push('/login');
   };
 
+  const handleNav = () => onClose?.();
+
   return (
     <aside className="flex flex-col w-[220px] min-h-screen flex-shrink-0" style={{ background: '#0f172a' }}>
-      {/* Logo */}
-      <div className="flex items-center gap-2.5 px-5 py-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-        {/* <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}> */}
-          {/* <Sparkles size={14} className="text-white" /> */}
-        {/* </div> */}
-        <div>
-          <div className="text-white font-bold text-[13px] leading-none" style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}>
-            OpsInsyts
+      {/* Logo — only show on desktop (mobile drawer has its own header) */}
+      {!onClose && (
+        <div className="flex items-center gap-2.5 px-5 py-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <div>
+            <div className="text-white font-bold text-[13px] leading-none" style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}>
+              OpsInsyts
+            </div>
           </div>
-          {/* <div className="text-[10px] mt-0.5" style={{ color: '#10b981' }}>AI Operating Layer</div> */}
         </div>
-      </div>
+      )}
 
       {/* Sage Connected badge */}
       <div className="mx-3 my-3 rounded-lg px-3 py-2 flex items-center gap-2" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)' }}>
@@ -61,30 +65,17 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 group ${
-                isActive ? 'nav-item-active' : ''
-              }`}
-              style={
-                isActive
-                  ? { color: '#10b981' }
-                  : { color: '#94a3b8' }
-              }
+              onClick={handleNav}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 group ${isActive ? 'nav-item-active' : ''}`}
+              style={isActive ? { color: '#10b981' } : { color: '#94a3b8' }}
             >
-              <Icon
-                size={15}
-                className={`flex-shrink-0 transition-colors ${isActive ? '' : 'group-hover:text-slate-300'}`}
-                style={isActive ? { color: '#10b981' } : {}}
-              />
+              <Icon size={15} className="flex-shrink-0" style={isActive ? { color: '#10b981' } : {}} />
               <span className="flex-1">{item.label}</span>
               {item.badge && (
-                <span
-                  className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                  style={
-                    item.badge === 'Live'
-                      ? { background: 'rgba(16,185,129,0.2)', color: '#10b981' }
-                      : { background: '#1e293b', color: '#94a3b8' }
-                  }
-                >
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                  style={item.badge === 'Live'
+                    ? { background: 'rgba(16,185,129,0.2)', color: '#10b981' }
+                    : { background: '#1e293b', color: '#94a3b8' }}>
                   {item.badge}
                 </span>
               )}
@@ -96,11 +87,11 @@ export default function Sidebar() {
 
       {/* Bottom section */}
       <div className="px-2 pb-4 space-y-0.5 border-t pt-3" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-        <Link href="/settings" className="flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors" style={{ color: '#64748b' }}>
+        <Link href="/settings" onClick={handleNav} className="flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors" style={{ color: '#64748b' }}>
           <Settings size={15} />
           <span>Settings</span>
         </Link>
-        <Link href="/help" className="flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors" style={{ color: '#64748b' }}>
+        <Link href="/help" onClick={handleNav} className="flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors" style={{ color: '#64748b' }}>
           <HelpCircle size={15} />
           <span>Help & Docs</span>
         </Link>
