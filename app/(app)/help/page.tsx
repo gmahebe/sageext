@@ -55,7 +55,7 @@ const sections = [
 ];
 
 const faqs = [
-  { q: 'How does Sage Clarity connect to my Sage account?', a: 'We use the official Sage Business Cloud REST API v3.1 with OAuth 2.0 authorisation. You grant access once and we maintain the connection using secure refresh tokens — no passwords are stored.' },
+  { q: 'How does OpsInsyts connect to my Sage account?', a: 'We use the official Sage Business Cloud REST API v3.1 with OAuth 2.0 authorisation. You grant access once and we maintain the connection using secure refresh tokens — no passwords are stored.' },
   { q: 'Is my financial data secure?', a: 'Yes. All data is encrypted at rest and in transit using AES-256 and TLS 1.3. We implement row-level security in our database so your data is never accessible to other tenants. We are POPIA and GDPR compliant.' },
   { q: 'What happens if the AI makes a mistake on a document?', a: 'Our three-phase pipeline is specifically designed to prevent AI errors from entering Sage. The Deterministic Validation Gate performs mathematical sum checks, temporal logic checks, and fuzzy vendor matching before any document is allowed to post. If confidence falls below 95%, the document is flagged for human review — it is never posted automatically.' },
   { q: 'Can multiple users access the same company account?', a: 'Yes. You can invite team members with role-based access control. Owner, Accountant, and Viewer roles are supported. Accountants using the Client Portal can access multiple company accounts from a single login.' },

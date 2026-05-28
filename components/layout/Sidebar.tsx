@@ -32,14 +32,14 @@ export default function Sidebar() {
     <aside className="flex flex-col w-[220px] min-h-screen flex-shrink-0" style={{ background: '#0f172a' }}>
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-5 py-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
-          <Sparkles size={14} className="text-white" />
-        </div>
+        {/* <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}> */}
+          {/* <Sparkles size={14} className="text-white" /> */}
+        {/* </div> */}
         <div>
           <div className="text-white font-bold text-[13px] leading-none" style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em' }}>
-            Sage Clarity
+            OpsInsyts
           </div>
-          <div className="text-[10px] mt-0.5" style={{ color: '#10b981' }}>AI Operating Layer</div>
+          {/* <div className="text-[10px] mt-0.5" style={{ color: '#10b981' }}>AI Operating Layer</div> */}
         </div>
       </div>
 

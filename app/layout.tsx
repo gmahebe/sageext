@@ -24,7 +24,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sage Clarity — AI Operating Intelligence for SMEs",
+  title: "OpsInsyts — AI Operating Intelligence for SMEs",
   description: "Real-time operational intelligence built on Sage Accounting",
 };
 

@@ -62,7 +62,7 @@ export default function LoginPage() {
           <div>
             <div className="text-white font-bold text-[20px] leading-none"
               style={{ fontFamily: 'var(--font-syne), Syne, sans-serif', letterSpacing: '-0.03em' }}>
-              Sage Clarity
+              OpsInsyts
             </div>
             <div className="text-[11px] mt-0.5" style={{ color: '#10b981' }}>AI Operating Layer</div>
           </div>
@@ -78,7 +78,7 @@ export default function LoginPage() {
               in 90 seconds.
             </h1>
             <p className="text-[15px] leading-relaxed max-w-sm" style={{ color: '#94a3b8' }}>
-              Sage Clarity transforms your Sage Accounting data into a real-time operational intelligence layer — surfacing risks, drafting actions, and automating workflows before problems escalate.
+              OpsInsyts transforms your accounting data into a real-time operational intelligence layer — surfacing risks, drafting actions, and automating workflows before problems escalate.
             </p>
           </div>
 
@@ -125,7 +125,7 @@ export default function LoginPage() {
             <Sparkles size={16} className="text-white" />
           </div>
           <span className="text-white font-bold text-[18px]"
-            style={{ fontFamily: 'var(--font-syne), Syne, sans-serif' }}>Sage Clarity</span>
+            style={{ fontFamily: 'var(--font-syne), Syne, sans-serif' }}>OpsInsyts</span>
         </div>
 
         <div className="w-full max-w-[400px]">
@@ -268,7 +268,7 @@ export default function LoginPage() {
 
           {/* Footer */}
           <p className="text-center text-[11px] mt-8" style={{ color: '#334155' }}>
-            Sage Clarity is a prototype · Not for production use
+            OpsInsyts · Prototype · Not for production use
           </p>
         </div>
       </div>
