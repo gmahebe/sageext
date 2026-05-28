@@ -55,16 +55,16 @@ export default function LoginPage() {
 
         {/* Logo */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl"
-            style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
-            <Sparkles size={18} className="text-white" />
-          </div>
+          {/* <div className="flex items-center justify-center w-10 h-10 rounded-xl" */}
+            {/* style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}> */}
+            {/* <Sparkles size={18} className="text-white" /> */}
+          {/* </div> */}
           <div>
             <div className="text-white font-bold text-[20px] leading-none"
               style={{ fontFamily: 'var(--font-syne), Syne, sans-serif', letterSpacing: '-0.03em' }}>
               OpsInsyts
             </div>
-            <div className="text-[11px] mt-0.5" style={{ color: '#10b981' }}>AI Operating Layer</div>
+            {/* <div className="text-[11px] mt-0.5" style={{ color: '#10b981' }}>AI Operating Layer</div> */}
           </div>
         </div>
 
