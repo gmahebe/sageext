@@ -87,11 +87,11 @@ export default function DocumentsPage() {
         subtitle="Three-Phase Cognitive Ingestion Pipeline · Layout-Aware OCR → LLM Reasoning → Deterministic Validation"
       />
 
-      <main className="flex-1 overflow-y-auto px-6 py-5">
-        <div className="grid grid-cols-12 gap-5 h-full">
+      <main className="flex-1 overflow-y-auto px-3 sm:px-6 py-3 sm:py-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 h-full">
 
           {/* ── Left: Upload + Pipeline ─────────────────────────── */}
-          <div className="col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-4">
 
             {/* Upload zone */}
             {pipelineStage === 'idle' ? (
@@ -224,7 +224,7 @@ export default function DocumentsPage() {
           </div>
 
           {/* ── Right: Extracted Data + Validation ─────────────── */}
-          <div className="col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-4">
 
             {/* Extracted invoice data */}
             {pipelineStage === 'complete' && (
@@ -246,7 +246,7 @@ export default function DocumentsPage() {
                   </div>
 
                   {/* Header fields */}
-                  <div className="grid grid-cols-3 gap-3 mb-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
                     {[
                       { label: 'Vendor (Corrected)', value: extractedInvoice.vendor, highlight: true },
                       { label: 'Invoice Number', value: extractedInvoice.invoiceNumber },
@@ -264,7 +264,8 @@ export default function DocumentsPage() {
                   </div>
 
                   {/* Line items */}
-                  <table className="w-full mb-3">
+                  <div className="overflow-x-auto -mx-1">
+                  <table className="w-full mb-3 min-w-[420px]">
                     <thead>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         {['Description', 'Qty', 'Unit Price', 'Total'].map(h => (
@@ -283,6 +284,7 @@ export default function DocumentsPage() {
                       ))}
                     </tbody>
                   </table>
+                  </div>
 
                   {/* Totals */}
                   <div className="rounded-xl p-3 space-y-1" style={{ background: '#f8fafc', border: '1px solid #f1f5f9' }}>
@@ -370,7 +372,7 @@ export default function DocumentsPage() {
                   </div>
 
                   {/* Action buttons */}
-                  <div className="flex gap-3 pt-3" style={{ borderTop: '1px solid #f1f5f9' }}>
+                  <div className="flex flex-col sm:flex-row gap-3 pt-3" style={{ borderTop: '1px solid #f1f5f9' }}>
                     <button
                       disabled={hasCriticalErrors}
                       className="flex-1 py-2.5 rounded-xl text-[13px] font-semibold text-white flex items-center justify-center gap-2 transition-opacity"

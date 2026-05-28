@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {
   Search, SlidersHorizontal, TrendingDown, AlertTriangle,
   ChevronRight, Pin, Send, MessageSquare, X, CheckCircle2,
-  Clock, Zap, Building2, MoreHorizontal, Users, Bell
+  Clock, Zap, Building2, MoreHorizontal, Users, Bell, ArrowLeft
 } from 'lucide-react';
 import TopBar from '@/components/layout/TopBar';
 import { clients } from '@/lib/mockData';
@@ -28,7 +28,8 @@ const taskTypeStyle = {
 };
 
 export default function PortalPage() {
-  const [selectedClientId, setSelectedClientId] = useState<string | null>('c1');
+  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'risk' | 'score' | 'name'>('risk');
   const [newTask, setNewTask] = useState('');
@@ -74,47 +75,49 @@ export default function PortalPage() {
       />
 
       {/* ── Stats bar ─────────────────────────────────────────── */}
-      <div className="px-6 py-3 flex items-center gap-4 bg-white border-b" style={{ borderColor: '#e2e8f0' }}>
-        {[
-          { label: 'Total Clients', value: totalClients, color: '#64748b', bg: '#f1f5f9' },
-          { label: 'Critical', value: criticalCount, color: '#dc2626', bg: '#fee2e2' },
-          { label: 'At Risk', value: atRiskCount, color: '#d97706', bg: '#fef3c7' },
-          { label: 'Healthy', value: clients.filter(c => c.healthScore >= 70).length, color: '#059669', bg: '#d1fae5' },
-          { label: 'Pending Actions', value: clients.reduce((s, c) => s + c.pendingActions, 0), color: '#2563eb', bg: '#dbeafe' },
-        ].map(stat => (
-          <div key={stat.label} className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
-            style={{ background: stat.bg }}>
-            <span className="text-[18px] font-bold" style={{ fontFamily: 'Syne, sans-serif', color: stat.color }}>{stat.value}</span>
-            <span className="text-[11px] font-medium" style={{ color: stat.color }}>{stat.label}</span>
-          </div>
-        ))}
+      <div className="px-3 sm:px-6 py-3 bg-white border-b overflow-x-auto" style={{ borderColor: '#e2e8f0' }}>
+        <div className="flex items-center gap-2 min-w-max">
+          {[
+            { label: 'Total', value: totalClients, color: '#64748b', bg: '#f1f5f9' },
+            { label: 'Critical', value: criticalCount, color: '#dc2626', bg: '#fee2e2' },
+            { label: 'At Risk', value: atRiskCount, color: '#d97706', bg: '#fef3c7' },
+            { label: 'Healthy', value: clients.filter(c => c.healthScore >= 70).length, color: '#059669', bg: '#d1fae5' },
+            { label: 'Actions', value: clients.reduce((s, c) => s + c.pendingActions, 0), color: '#2563eb', bg: '#dbeafe' },
+          ].map(stat => (
+            <div key={stat.label} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg flex-shrink-0"
+              style={{ background: stat.bg }}>
+              <span className="text-[16px] font-bold" style={{ fontFamily: 'Syne, sans-serif', color: stat.color }}>{stat.value}</span>
+              <span className="text-[11px] font-medium" style={{ color: stat.color }}>{stat.label}</span>
+            </div>
+          ))}
 
-        <div className="ml-auto flex items-center gap-2">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: '#f1f5f9', border: '1px solid #e2e8f0' }}>
-            <Search size={13} style={{ color: '#94a3b8' }} />
-            <input
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder="Search clients…"
-              className="text-[12px] bg-transparent outline-none w-32"
-              style={{ color: '#334155' }}
-            />
+          <div className="flex items-center gap-2 ml-2">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: '#f1f5f9', border: '1px solid #e2e8f0' }}>
+              <Search size={13} style={{ color: '#94a3b8' }} />
+              <input
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Search clients…"
+                className="text-[12px] bg-transparent outline-none w-24 sm:w-32"
+                style={{ color: '#334155' }}
+              />
+            </div>
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value as typeof sortBy)}
+              className="text-[12px] px-3 py-1.5 rounded-lg outline-none"
+              style={{ background: '#f1f5f9', color: '#64748b', border: '1px solid #e2e8f0' }}>
+              <option value="risk">Highest Risk</option>
+              <option value="score">Healthiest</option>
+              <option value="name">Name A–Z</option>
+            </select>
           </div>
-          <select
-            value={sortBy}
-            onChange={e => setSortBy(e.target.value as typeof sortBy)}
-            className="text-[12px] px-3 py-1.5 rounded-lg outline-none"
-            style={{ background: '#f1f5f9', color: '#64748b', border: '1px solid #e2e8f0' }}>
-            <option value="risk">Sort: Highest Risk</option>
-            <option value="score">Sort: Healthiest</option>
-            <option value="name">Sort: Name A–Z</option>
-          </select>
         </div>
       </div>
 
       <main className="flex-1 overflow-hidden flex">
         {/* ── Client list ────────────────────────────────────── */}
-        <div className="w-[400px] flex-shrink-0 overflow-y-auto border-r" style={{ borderColor: '#e2e8f0', background: '#f8fafc' }}>
+        <div className={`${mobileDetailOpen ? 'hidden' : 'flex'} md:flex flex-col w-full md:w-[400px] flex-shrink-0 overflow-y-auto border-r`} style={{ borderColor: '#e2e8f0', background: '#f8fafc' }}>
           <div className="p-3 space-y-2">
             {filtered.map((client) => {
               const s = scoreColor(client.healthScore);
@@ -122,7 +125,7 @@ export default function PortalPage() {
               return (
                 <button
                   key={client.id}
-                  onClick={() => setSelectedClientId(client.id)}
+                  onClick={() => { setSelectedClientId(client.id); setMobileDetailOpen(true); }}
                   className="w-full text-left p-3.5 rounded-xl transition-all card-hover"
                   style={{
                     background: isSelected ? 'white' : 'white',
@@ -198,7 +201,14 @@ export default function PortalPage() {
 
         {/* ── Client detail panel ────────────────────────────── */}
         {selectedClient ? (
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className={`${mobileDetailOpen ? 'flex' : 'hidden'} md:flex flex-col flex-1 overflow-y-auto p-3 sm:p-5 gap-4`}>
+            {/* Back button — mobile only */}
+            <button
+              onClick={() => setMobileDetailOpen(false)}
+              className="md:hidden flex items-center gap-2 text-[13px] font-medium mb-1"
+              style={{ color: '#64748b' }}>
+              <ArrowLeft size={15} /> Back to clients
+            </button>
             {/* Client header */}
             <div className="bg-white rounded-2xl p-5" style={{ border: '1px solid #e2e8f0' }}>
               <div className="flex items-start justify-between">
@@ -341,7 +351,7 @@ export default function PortalPage() {
             </div>
           </div>
         ) : (
-          <div className="flex-1 flex items-center justify-center text-center p-8">
+          <div className="hidden md:flex flex-1 items-center justify-center text-center p-8">
             <div>
               <Users size={40} className="mx-auto mb-3" style={{ color: '#cbd5e1' }} />
               <p className="text-[14px] font-semibold text-slate-400">Select a client to view details</p>
